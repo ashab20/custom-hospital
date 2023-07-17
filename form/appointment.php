@@ -62,7 +62,22 @@
             </select>
             <input type="hidden" id="limit">
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group mt-3 mt-md-0">
+            <div><label for="gender">Gender:</label><span class="float-end text-danger">*</span></div>
+            <select name="gender" id="" class="form-control">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
 
+        </div>
+        <div class="col-md-4 form-group mt-3 mt-md-0">
+            <div><label for="gender">Time:</label><span class="float-end text-danger">*</span></div>
+            <input type="text" readonly class="form-control" id="timees">
+
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group mt-3">
@@ -136,7 +151,7 @@ function get_time(shift) {
         contentType: 'application/json',
         success: function(data) {
             if (data["status"] == 'success') {
-                $('#time').text(JSON.stringify(data["time"]).trim('"'));
+                $('#timees').val(JSON.stringify(data["time"]).trim('"'));
                 $('#limit').text(JSON.stringify(data["time"]).trim('"'));
                 $('#fees').val(JSON.stringify(data['fees']).trim('"') + "tk");
                 $('#discount').val(JSON.stringify(data['discount']).trim('"'));
