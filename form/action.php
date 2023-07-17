@@ -102,7 +102,7 @@ if(isset($_POST["appt"])){
   unset($_POST["appt"]);
   $_POST["name"] = htmlentities(ucwords($_POST["name"]));
   $_POST["message"] = htmlentities(ucwords($_POST["message"]));
-  $_POST["date"] = htmlentities(ucwords($_POST["date"]));
+  $_POST["date"] = $_POST["date"];
   $_POST["phone"] = htmlentities($_POST["phone"]);
   $phone = $_POST["phone"];
   

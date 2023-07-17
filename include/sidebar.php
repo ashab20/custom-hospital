@@ -381,7 +381,11 @@ if($usr['roles'] === 'SUPERADMIN'){?>
         <li class="nav-item nav-profile">
             <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
-                    <img src="../assets/images/faces/face1.jpg" alt="profile">
+                    <?php if($usr['avatar']!== null){ ?>
+                    <img src="../assets/images/avatar/<?= $usr['avatar'] ?>" alt="" width="100px" />
+                    <?php }else{  ?>
+                    <img src="../assets/images/faces-clipart/pic-4.png" alt="" width="100px" />
+                    <?php } ?>
                     <span class="login-status online"></span>
                     <!--change to offline or busy as needed-->
                 </div>
