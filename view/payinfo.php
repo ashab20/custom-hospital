@@ -6,7 +6,7 @@ require_once('../include/header.php');
 //   echo "<script> location.replace('$baseurl/dashboard/')</script>";
 // }
 
-if($usr['roles'] !== 'SUPERADMIN' && $usr['roles'] !== 'ADMIN'){
+if($usr['roles'] !== 'SUPERADMIN' && $usr['roles'] !== 'ADMIN'&& $usr['roles'] !== 'ASSISTANT'){
   header("location:$baseurl/pages/login.php");
 }
 ?>

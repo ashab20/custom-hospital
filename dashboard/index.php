@@ -10,12 +10,8 @@ if(!$_SESSION['userdata']){
 if(isset($usr)){
     if ($usr['roles']== 'DOCTOR'){
       echo "<script> location.replace('$baseurl/dashboard/doctor.php')</script>";
-    }elseif ($usr['roles']== 'NURSE'){
-      echo "<script> location.replace('$baseurl/dashboard/nurse.php')</script>";
-    }elseif ($usr['roles']== 'RECEPTIONIST'){
-      echo "<script> location.replace('$baseurl/dashboard/nurse.php')</script>";
-    }elseif ($usr['roles']== 'LAB-TECH'){
-      echo "<script> location.replace('$baseurl/dashboard/nurse.php')</script>";
+    }elseif ($usr['roles']== 'ASSISTANT'){
+      echo "<script> location.replace('$baseurl/dashboard/assistant.php')</script>";
     }
   }
 ?>
@@ -25,7 +21,7 @@ $data = $mysqli->selector('user','*',false,'id','DESC');
 $patientData = $mysqli->selector('patient','*');
 $admin = $mysqli->counter("user","roles='PETANT'");
 $doctor = $mysqli->counter("user","roles='DOCTOR'");
-$employee = $mysqli->counter("user","roles='EMPLOYEE'");
+$assistant = $mysqli->counter("user","roles='ASSISTANT'");
 // $SUPERSUPERADMIN = $mysqli->selector("user","COUNT(roles='SUPERSUPERADMIN')");
 
 $user = $data['selectdata'];
@@ -113,7 +109,7 @@ if($data['error']){
                                 <h4 class="font-weight-normal mb-3">Assistant <i
                                         class="mdi mdi-chart-line mdi-24px float-right"></i>
                                 </h4>
-                                <h2 class="mb-5"><?= $employee['count'][0] ?></h2>
+                                <h2 class="mb-5"><?= $assistant['count'][0] ?></h2>
                                 <!-- <h6 class="card-text">Increased by 60%</h6> -->
                             </a>
                         </div>

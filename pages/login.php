@@ -9,14 +9,15 @@ if(isset($_SESSION['userdata'])){
 
 
 if(isset($_SESSION['userdata'])){
+    // echo $_SESSION['userdata']['roles'];
   if($_SESSION['userdata']['roles']== 'SUPERADMIN'){
     echo "<script> location.replace('$baseurl/dashboard/')</script>";
   }elseif ($_SESSION['userdata']['roles']== 'ADMIN'){
     echo "<script> location.replace('$baseurl/dashboard/patient.php')</script>";
   }elseif ($_SESSION['userdata']['roles']== 'DOCTOR'){
     echo "<script> location.replace('$baseurl/dashboard/doctor.php')</script>";
-  }elseif ($_SESSION['userdata']['roles']== 'EMPLOYEE'){
-    echo "<script> location.replace('$baseurl/dashboard/emp.php')</script>";
+  }elseif ($_SESSION['userdata']['roles']== 'ASSISTANT'){
+    echo "<script> location.replace('$baseurl/dashboard/assistant.php')</script>";
   }
 }
 

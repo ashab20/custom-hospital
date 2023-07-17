@@ -8,13 +8,13 @@ require_once('../include/header.php');
 // }
 
 
-if($usr){
+if($usr ){
 switch ($usr['roles']) {
   case 'DOCTOR':
     header("location:$baseurl/dashboard/");
     break;
-  case 'EMPLOYEE':
-    header("location:$baseurl/dashboard/");
+  case 'ASSISTANT':
+    // header("location:$baseurl/dashboard/");
     break;
   }
 }else{
