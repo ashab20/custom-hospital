@@ -1,0 +1,18 @@
+[27-Jul-2022 17:15:00 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 101
+[27-Jul-2022 17:15:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 102
+[27-Jul-2022 17:15:00 UTC] PHP Notice:  Undefined variable: pid in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 111
+[27-Jul-2022 17:15:00 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 112
+[27-Jul-2022 17:15:20 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 101
+[27-Jul-2022 17:15:20 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 102
+[27-Jul-2022 17:15:20 UTC] PHP Notice:  Undefined variable: pid in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 111
+[27-Jul-2022 17:15:20 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 112
+[27-Jul-2022 17:18:37 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 101
+[27-Jul-2022 17:18:37 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 102
+[27-Jul-2022 17:18:37 UTC] PHP Notice:  Undefined variable: pid in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 111
+[27-Jul-2022 17:18:37 UTC] PHP Notice:  Undefined variable: reportData in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 112
+[27-Jul-2022 17:18:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 102
+[27-Jul-2022 17:18:49 UTC] PHP Notice:  Undefined variable: pid in /home/wdpfijzz/hospital.wdpf50.tech/form/addreport.php on line 111
+[28-Jul-2022 12:16:41 UTC] PHP Notice:  Undefined index: selectdata in /home/wdpfijzz/hospital.wdpf50.tech/form/action.php on line 402
+[28-Jul-2022 12:16:41 UTC] PHP Notice:  Undefined index: selectdata in /home/wdpfijzz/hospital.wdpf50.tech/form/action.php on line 404
+[28-Jul-2022 13:11:09 UTC] PHP Notice:  Undefined index: selectdata in /home/wdpfijzz/hospital.wdpf50.tech/form/action.php on line 402
+[28-Jul-2022 13:11:09 UTC] PHP Notice:  Undefined index: selectdata in /home/wdpfijzz/hospital.wdpf50.tech/form/action.php on line 404
