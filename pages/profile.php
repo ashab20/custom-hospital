@@ -41,8 +41,10 @@ if(isset($_SESSION['msg'])){
                             <h4 for="text-muted">Account settings</h4>
                         </div>
                         <div class="col-md-6 pt-md-0 pt-3 d-flex justify-content-end">
-                            <a class="btn btn-gradient-primar"
-                                href="<?= $baseurl ?>/form/updateuser.php?id=<?=$user_Id?>">Edit Profile</a>
+                            <a class="btn btn-gradient-primary mx-1"
+                                href="<?= $baseurl ?>/form/updateuser.php?id=<?=$user_Id?>">Edit Account</a>
+                            <a class="btn btn-gradient-warning mx-1 text-dark"
+                                href="<?=$baseurl?>/pages/changepassword.php?id=<?=$usr['id'] ?>"> Change Passwprd</a>
                         </div>
                     </div>
                     <!-- show profile -->

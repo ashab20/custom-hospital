@@ -11,11 +11,11 @@ define('HOST','localhost');
 
 // database user
 // define('USER','wdpfijzz_hospital');
-define('USER','admin');
+define('USER','root');
 
 // passsword
 // define('PASS','wdpfijzz_hospital');
-define('PASS','1');
+define('PASS','ashabu');
 
 // database name
 // define('DB_NAME','wdpfijzz_hospital');

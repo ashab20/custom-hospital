@@ -59,8 +59,8 @@ if(isset($_SESSION['userdata'])){
                         <div class="auth-form-light text-left p-5">
                             <div class="brand-logo justify-content-center d-flex text-center">
                                 <a class=" d-flex text-center text-decoration-none" href="<?=$baseurl?>">
-                                    <img src="../assets/images/hospital-sign.png" alt="logo" width="50px" class="mt-2"
-                                        style="width: 35px;height:30px" />
+                                    <img src="<?=$baseurl?>assets/images/hospital-sign.png" alt="logo" width="50px"
+                                        class="mt-2" style="width: 35px;height:30px" />
                                     <h1 class="pt-2" style="font-weight:bolder;font-size:1.6rem; color:#e01111;">
                                         HOSPITAL</h1>
                                 </a>
@@ -88,20 +88,16 @@ if(isset($_SESSION['userdata'])){
                                         href="index.html">SIGN IN</button>
                                 </div>
                                 <div class="my-2 d-flex justify-content-between align-items-center">
-                                    <!-- <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input"> Keep me signed in </label>
-                    </div> -->
-                                    <!-- <a href="#" class="auth-link text-black">Forgot password?</a> -->
+                                    <div class="form-check">
+                                        <label class="form-check-label text-muted">
+                                            <input type="checkbox" class="form-check-input"> Keep me signed in </label>
+                                    </div>
+                                    <a href="<?= $baseurl?>pages/register.php" class="auth-link text-black">Create New
+                                        Account?</a>
                                 </div>
-                                <!-- <div class="mb-2">
-                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                      <i class="mdi mdi-facebook me-2"></i>Connect using facebook </button>
-                  </div> -->
-                                <!-- <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.php" class="text-primary">Create</a> -->
                         </div>
                         </form>
-                        <div class="bg-white text-center">
+                        <!-- <div class="bg-white text-center">
                             <table class="table">
                                 <thead>
                                     <th>Roles</th>
@@ -114,31 +110,9 @@ if(isset($_SESSION['userdata'])){
                                         <td>superadmin@gmail.com</td>
                                         <td>123456</td>
                                     </tr>
-                                    <?php  
-                    // <tr>
-                    //   <td>ADMIN</td>
-                    //   <td>admin@gmail.com</td>
-                    //   <td>123456</td>
-                    // </tr>
-                    // <tr>
-                    //   <td>DOCTOR</td>
-                    //   <td>doctor@gmail.com</td>
-                    //   <td>123456</td>
-                    // </tr>
-                    // <tr>
-                    //   <td>nurse</td>
-                    //   <td>nurse@gmail.com</td>
-                    //   <td>123456</td>
-                    // </tr>
-                    // <tr>
-                    //   <td>LAB TECHNICINE</td>
-                    //   <td>lab@gmail.com</td>
-                    //   <td>123456</td>
-                    // </tr>
-                    ?>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
 
                     </div>
 

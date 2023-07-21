@@ -25,8 +25,11 @@ if(isset($_SESSION['userdata'])){
                 <div class="col-lg-4 mx-auto">
                     <div class="auth-form-light text-left p-5">
                         <div class="brand-logo">
-                            <a href="<?= $baseurl ?>/">
-                                <img src="../assets/images/logo.svg">
+                            <a class=" d-flex text-center text-decoration-none" href="<?=$baseurl?>">
+                                <img src="<?=$baseurl?>assets/images/hospital-sign.png" alt="logo" width="50px"
+                                    class="mt-2" style="width: 35px;height:30px" />
+                                <h1 class="pt-2" style="font-weight:bolder;font-size:1.6rem; color:#e01111;">
+                                    HOSPITAL</h1>
                             </a>
                         </div>
                         <h4>New here?</h4>

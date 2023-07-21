@@ -32,9 +32,19 @@ if(isset($_POST["login"])){
     }else{
       $data['selectdata'] = $data['selectdata'][0];
       if($data['selectdata']['status']==1){
+        
         $_SESSION['userdata']=$data['selectdata'];
+        if($data['selectdata']['roles'] == 'PATIENT'){
+          $usesr_id = $data['selectdata']['id'];
+          $patient = $mysqli->selector("patient","*",['user_id'=>$usesr_id])['selectdata'][0];
+          $_SESSION['userdata']['patient_id']=$patient['id'];
+        }
         $_SESSION['msg']="Login success";
   
+
+        // print_r($_SESSION['userdata']);
+        // return;
+
         if($data['selectdata']['roles']== 'SUPERADMIN'){
           echo "<script> location.replace('$baseurl/dashboard/')</script>";
         }elseif ($data['selectdata']['roles']== 'ADMIN'){
@@ -53,8 +63,8 @@ if(isset($_POST["login"])){
             }
           }
           
-        }elseif ($data['selectdata']['roles']== 'EMPLOYEE'){
-          echo "<script> location.replace('$baseurl/dashboard/emp.php')</script>";
+        }elseif ($data['selectdata']['roles']== 'PATIENT'){
+          echo "<script> location.replace('$baseurl/dashboard/patient.php')</script>";
         }else{
           echo "<script> location.replace('$baseurl/pages/login.php')</script>";
         }
@@ -74,6 +84,44 @@ if(isset($_POST["login"])){
 // ! *** REGISTRATION ***
 
 if(isset($_POST["reg"])){
+    if($_POST["cpassword"] != $_POST["password"]){
+      $_SESSION["msg"]="Password Does't matched!,Please Try again";
+      echo "<script> location.replace('$baseurl/pages/register.php')</script>";
+   
+    }
+    unset($_POST["reg"]);
+    unset($_POST["cpassword"]);
+    $_POST["password"] = md5(sha1($_POST["password"]));
+    $_POST["email"] = htmlentities(trim($_POST["email"]));
+    $_POST["name"] = htmlentities(ucwords($_POST["name"]));
+    $_POST["phone"] = htmlentities($_POST["phone"]);
+    $data = $mysqli->creator("user",$_POST);
+    if($data["error"]){
+      $_SESSION["msg"]=$data["msg"];
+      echo "<script> location.replace('$baseurl/pages/register.php')</script>";
+     
+    }else{
+      $user_id =  $data['insert_id'];
+      $patientData =  $data = $mysqli->selector("user","*","id='$user_id '")['selectdata'][0];
+      $patient['user_id'] =  $user_id;
+      $patient["name"] = htmlentities(ucwords($_POST["name"]));
+      $patient["phone"] = htmlentities($_POST["phone"]);
+      $patient["created_by"] = $user_id;
+      $data = $mysqli->creator("patient",$patient);
+      if($data['msg']='saved'){
+        $_SESSION['msg']="<p style='color:green'>Registration Successfully</p>";
+       
+      }
+      
+      echo "<script> location.replace('$baseurl/pages/login.php')</script>";
+  
+    }
+    
+}
+
+// ! *** ADD USER ***
+
+if(isset($_POST["adduser"])){
     unset($_POST["reg"]);
     unset($_POST["cpassword"]);
     if($user){
@@ -89,6 +137,13 @@ if(isset($_POST["reg"])){
       echo "<script> location.replace('$baseurl/pages/register.php')</script>";
      
     }else{
+      // $user_id =  $data['insert_id'];
+      // $patientData =  $data = $mysqli->selector("user","*","id='$user_id '")['selectdata'][0];
+      // $patient['user_id'] =  $user_id;
+      // $patient["name"] = htmlentities(ucwords($_POST["name"]));
+      // $patient["phone"] = htmlentities($_POST["phone"]);
+      // $patient["created_by"] = $user_id;
+      // $data = $mysqli->creator("patient",$patient);
       if($data['msg']='saved'){
         $_SESSION['msg']="<p style='color:green'>Registration Successfully</p>";
        

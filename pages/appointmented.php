@@ -65,10 +65,16 @@ $mysqli = new Crud();
 
                 <?php
 
+if($usr['roles'] == 'PATIENT'){
+    $patientId = $_GET['patientId'];
+    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id WHERE p.id='$patientId' ORDER BY a.date DESC
+    ");
 
-
-$allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id ORDER BY a.date DESC
-");
+}else{
+    $patientId = $_GET['patientId'];
+    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id ORDER BY a.date DESC
+    ");
+}
 
 $patient = $allPatient["singledata"];
 ?>
@@ -95,7 +101,7 @@ $patient = $allPatient["singledata"];
                             <div class="card-body">
 
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="card-title">Admitted Patient List</h4>
+                                    <h4 class="card-title">Patient List</h4>
                                     <div class="search d-flex">
                                         <i class="mdi mdi-person-star"></i>
                                         <input type="text" class="form-control" placeholder="Search by name">
@@ -170,16 +176,20 @@ $patient = $allPatient["singledata"];
                                                             <i class="mdi mdi-note-plus"></i>
                                                         </a>
                                                         <?php }  ?>
+                                                        <?php if($usr['roles'] == 'DOCTOR' || $usr['roles'] == 'SUPERADMIN'){ ?>
                                                         <a title="Test/release"
                                                             href="<?= $baseurl ?>/pages/patient.php?phn=<?= $p['phone'] ?>"
                                                             class="btn-sm bg-info text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-plus-circle-multiple-outline"></i>
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if($usr['roles'] == 'ASSISTANT' || $usr['roles'] == 'SUPERADMIN'){ ?>
                                                         <a title="Cancel" onclick=" return myConfirm();"
                                                             href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>"
                                                             class="btn-sm bg-danger text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-cancel"></i>
                                                         </a>
+                                                        <?php } ?>
                                                     </span>
                                                 </td>
                                             </tr>

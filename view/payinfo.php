@@ -6,7 +6,7 @@ require_once('../include/header.php');
 //   echo "<script> location.replace('$baseurl/dashboard/')</script>";
 // }
 
-if($usr['roles'] !== 'SUPERADMIN' && $usr['roles'] !== 'ADMIN'&& $usr['roles'] !== 'ASSISTANT'){
+if(!$usr){
   header("location:$baseurl/pages/login.php");
 }
 ?>
@@ -347,7 +347,7 @@ if(isset($_GET['invoice']) && strlen($_GET['invoice']) > 0){
                                             <hr>
                                             <div class="row  align-items-center bgc-primary-l3 p-2">
                                                 <div class="col-7 text-right">
-                                                    Paid:
+                                                    Payment:
                                                 </div>
                                                 <div class="col-5">
                                                     <span class="text-150 text-success-d3 opacity-2"
