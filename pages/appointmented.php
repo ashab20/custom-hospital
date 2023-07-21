@@ -1,5 +1,5 @@
-<?php 
-require_once('../lib/Crud.php'); 
+<?php
+require_once('../lib/Crud.php');
 require_once('../include/header.php');
 
 
@@ -43,7 +43,7 @@ $mysqli = new Crud();
 
 
 
-                <!-- ***************************************************************** -->
+                <!-- *************************************************************** -->
                 <!-- page header start -->
                 <div class="page-header">
                     <h3 class="page-title">
@@ -83,7 +83,7 @@ $patient = $allPatient["singledata"];
 // ! CONDITION END @:ADD PATIENT
 
   $id = $usr['id'];
-// ! *** PATIENT ADDED BY THIS ADMIN ***
+// ! * PATIENT ADDED BY THIS ADMIN *
 
 
 
@@ -106,7 +106,7 @@ $patient = $allPatient["singledata"];
                                     </a>
                                 </div>
                                 <div class="table-responsive mt-3">
-                                    <!-- ! *** TABLE FROM DATABASE *** -->
+                                    <!-- ! * TABLE FROM DATABASE * -->
                                     <table class="table table-hover table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -120,11 +120,14 @@ $patient = $allPatient["singledata"];
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
+                                            <?php
+                                            $l = 0;
                           if($allPatient['numrows'] > 0){
-                          foreach ($patient as $p){?>
+                          foreach ($patient as $p){
+                            if($p['status'] == 1){
+                            ?>
                                             <tr>
-                                                <td><?= $p['id'] ?>
+                                                <td><?= ++$l ?>
                                                     <input type="text" hidden value="<?= $p['id'] ?>" id="pid">
                                                 </td>
                                                 <td>
@@ -146,7 +149,7 @@ $patient = $allPatient["singledata"];
                                                     <span class="d-flex justify-content-center">
 
                                                         <!-- Check prescription -->
-                                                        <?php 
+                                                        <?php
                               $checkApp = $mysqli->select_single("SELECT * from prescription WHERE appointment_id=".$p["id"]);
                               if($checkApp["numrows"] > 0 && !$usr['roles'] == 'ASSISTANT'){
                                  ?>
@@ -172,10 +175,15 @@ $patient = $allPatient["singledata"];
                                                             class="btn-sm bg-info text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-plus-circle-multiple-outline"></i>
                                                         </a>
+                                                        <a title="Cancel" onclick=" return myConfirm();"
+                                                            href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>"
+                                                            class="btn-sm bg-danger text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-cancel"></i>
+                                                        </a>
                                                     </span>
                                                 </td>
                                             </tr>
-                                            <?php }}else{?>
+                                            <?php }}}else{?>
                                             <tr>
                                                 <td colspan="5">No Data Found</td>
                                             </tr>
@@ -187,12 +195,12 @@ $patient = $allPatient["singledata"];
                         </div>
                     </div>
                 </div>
-                <?php 
+                <?php
 
 ?>
 
 
-                <!-- *** END THIS ADMIN*** -->
+                <!-- * END THIS ADMIN*** -->
 
             </div>
 
@@ -200,11 +208,18 @@ $patient = $allPatient["singledata"];
             <!-- partial:include/footer.php -->
             <?php require_once('../include/footer.php') ?>
 
-
             <script>
             $('#released').click(() => {
                 let pid = $("#pid").val();
                 location.replace("./invoice.php?patientid=" + pid);
 
             })
+
+            function myConfirm() {
+                if (confirm("Do you want to Cancel?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
             </script>

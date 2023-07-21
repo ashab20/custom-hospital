@@ -1,22 +1,22 @@
 <?php
 session_start();
-require_once('../lib/Crud.php'); 
+require_once('../lib/Crud.php');
 
 $mysqli = new Crud();
 
-
-if(isset($_SESSION['userdata'])){
-  $user = $_SESSION['userdata'];
-}else{
-header("location:http://localhost/hospital/pages/login.php");
-
-}
+//
+// if(isset($_SESSION['userdata'])){
+//   $user = $_SESSION['userdata'];
+// }else{
+// header("location:http://localhost/hospital/pages/login.php");
+//
+// }
 
 // *** Depertment Data ***
 
 if(isset($_GET['department'])){
     $department_id= $_GET['department'];
-  
+
     $data = $mysqli->custome_query("select doctor.id, user.name from doctor join user on user.id=doctor.user_id where doctor.department_id=$department_id");
     if($data['numrows'] > 0){
       $value="<option value=''>Select Doctor</option>";
@@ -26,9 +26,9 @@ if(isset($_GET['department'])){
     }else{
       $value="<option value=''>No Doctor Found</option>";
     }
-	
+
 	echo json_encode(array('msg'=>$value));
-    
+
 }
 
 
@@ -49,8 +49,8 @@ if(isset($_GET['time'])){
       $patientid= $_GET['patientId'];
     }
 
-    
-  
+
+
     $Doctordata = $mysqli->custome_query("select doctor.daily_approval_patient, doctor.shift,doctor.visit_fee,doctor.id as doctor_id, user.id from doctor join user on user.id=doctor.user_id where doctor.id=$timeid");
 
     if($Doctordata['numrows'] > 0){
@@ -62,7 +62,7 @@ if(isset($_GET['time'])){
       if($limit && isset($_GET['apptdate'])){
         $date = $_GET['apptdate'];
         $appointData = $mysqli->custome_query("select id from appointment where appointment.date='$date'");
-        
+
         if($appointData['numrows'] > $limit){
           $value = ["msg"=>"Appointment is Booking Full","status"=>"faild"];
           echo json_encode($value);
@@ -74,36 +74,36 @@ if(isset($_GET['time'])){
             case 'MORNING':
                 $time = '7:00AM-3:00PM';
                 break;
-            
+
             case 'EVENING':
                 $time = "3:00PM-11:00PM";
                 break;
-            
+
             case 'NIGHT':
                 $time = '11:00PM-8:00AM';
                 break;
-            
+
             default:
             $time = '3:00PM-11:00PM';
                 break;
         }
-        
+
       }
 
       $total = $fees;
-
+      $discount   = 0;
       if($patientid){
         $chachApp = $mysqli->find("SELECT ip.payment_date,ip.appointment_id,d.id as doctor_id,d.visit_fee
-        from invoice_payment ip 
+        from invoice_payment ip
           JOIN appointment a
             on a.id=ip.appointment_id
-            JOIN doctor d 	 
+            JOIN doctor d
           on a.doctor_id=d.id
         where ip.patient_id=$patientid AND doctor_id=$doctorId
         ORDER BY ip.payment_date DESC");
         $discount = "No discount";
-        
-        
+
+
         if($chachApp["numrows"] > 0){
           if(date("y-m-d H:i:s",strtotime("-2 months")) > $chachApp["singledata"][0]["payment_date"] && $chachApp["singledata"][0]['appointment_id'] != null ){
             $discount = 20;
@@ -117,9 +117,9 @@ if(isset($_GET['time'])){
     }else{
       $value =["msg"=>"Appointment is Booking Full","status"=>"faild"];
     }
-	
+
 	echo json_encode($value);
-    
+
 }
 
 
@@ -138,7 +138,7 @@ if(isset($_GET['rate'])){
   }
 
 echo json_encode(array('msg'=>$value));
-  
+
 }
 
 

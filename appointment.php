@@ -1,4 +1,4 @@
-<?php 
+<?php
     session_start();
     require_once('config.php');
 
@@ -96,13 +96,13 @@
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
             <div class="">
-                <?php 
+                <?php
         if(isset($_SESSION['userdata'])){
           // link
           $link =$user = '';
-          if($_SESSION['userdata']){ 
+          if($_SESSION['userdata']){
             $link= 'dashboard/user.php';
-          } 
+          }
 
           $user = $_SESSION['userdata']['name'];
           }else{
@@ -133,35 +133,16 @@
 
             ?>
                 <div class="text-center">
-                    <h3><?= $txt ?> </h3>
-                    <?php
-  if($txt == true){ ?>
-                    <button class="btn appointment-btn mb-5 bg-gradient-primary" onclick="appt();">
-                        Make Another Appointment
-                    </button>
-                    <?php } ?>
-                    <script>
-                    function appt() {
-                        let apptform = document.getElementById('apptform');
-                        if (apptform.style.display === 'block') {
-                            apptform.style.display = 'none'
-                        } else {
-                            apptform.style.display = 'block'
-                        }
-                    }
-                    </script>
-                    <?php 
-                        if($txt == true){?>
+
                     <div>
                         <?php
-                        require_once('form/appointment.php'); 
+                        require_once('form/appointment.php');
                         ?>
                     </div>
-                    <?php } else{ ?>
                 </div>
                 <?php
-        require_once('form/appointment.php'); 
-    }
+        require_once('form/appointment.php');
+
 ?>
 
 

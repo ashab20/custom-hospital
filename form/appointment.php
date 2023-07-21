@@ -1,5 +1,5 @@
 <?php
-    
+
     $connect =  new mysqli(HOST,USER,PASS,DB_NAME);
     if($connect->connect_error){
         echo $connect->connect_error;
@@ -9,14 +9,14 @@
     $statement->execute();
     $result = $statement->get_result();
     $departments = $result->fetch_all(MYSQLI_ASSOC);
-
-    if($departmentData['error']){
-      $_SESSION['msg']=$departmentData['msg'];
-      echo "error";
-    }
+    // 
+    // if($departmentData['error']){
+    //   $_SESSION['msg']=$departmentData['msg'];
+    //   echo "error";
+    // }
 
     // print_r($department);
-    
+
 ?>
 
 

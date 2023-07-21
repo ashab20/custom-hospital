@@ -10,7 +10,7 @@ require_once('./config.php');
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Medicio Bootstrap Template - Index</title>
+    <title>Hospital management</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -93,13 +93,13 @@ require_once('./config.php');
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
             <div class="">
-                <?php 
+                <?php
         if(isset($_SESSION['userdata'])){
           // link
           $link =$user = '';
-          if($_SESSION['userdata']){ 
+          if($_SESSION['userdata']){
             $link= 'dashboard/user.php';
-          } 
+          }
 
           $user = $_SESSION['userdata']['name'];
           }else{
@@ -125,7 +125,7 @@ require_once('./config.php');
                 <!-- Slide 1 -->
                 <div class="carousel-item active" style="background-image: url(assets/images/slide/slide-1.jpg)">
                     <div class="container">
-                        <h2>Welcome to <span>Medicio</span></h2>
+                        <h2>Welcome to <span>Hospital</span></h2>
                         <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut
                             aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque
                             accusamus repellendus deleniti vel.</p>

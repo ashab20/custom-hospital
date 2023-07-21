@@ -1,5 +1,5 @@
-<?php 
-require_once('../lib/Crud.php'); 
+<?php
+require_once('../lib/Crud.php');
 require_once('../include/header.php');
 
 
@@ -39,7 +39,7 @@ $mysqli = new Crud();
 
 
 
-                <!-- ***************************************************************** -->
+                <!-- *************************************************************** -->
                 <!-- page header start -->
                 <div class="page-header">
                     <h3 class="page-title">
@@ -72,7 +72,7 @@ $patient = $allPatient["singledata"];
 // ! CONDITION END @:ADD PATIENT
 
   $id = $usr['id'];
-// ! *** PATIENT ADDED BY THIS ADMIN ***
+// ! * PATIENT ADDED BY THIS ADMIN *
 
 
 ?>
@@ -93,7 +93,7 @@ $patient = $allPatient["singledata"];
                                     </a>
                                 </div>
                                 <div class="table-responsive mt-3">
-                                    <!-- ! *** TABLE FROM DATABASE *** -->
+                                    <!-- ! * TABLE FROM DATABASE * -->
                                     <table class="table table-hover table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -106,7 +106,7 @@ $patient = $allPatient["singledata"];
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
+                                            <?php
                           if($allPatient['numrows'] > 0 ){
                           foreach ($patient as $p){?>
                                             <tr>
@@ -137,8 +137,13 @@ $patient = $allPatient["singledata"];
                                                         </a>
                                                         <a title="Prescription"
                                                             href="<?= $baseurl ?>/pages/patient.php?phn=<?= $p['phone'] ?>"
-                                                            class="btn-sm bg-info text-decoration-none text-white m-1">
+                                                            class="btn-sm bg-success text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-plus-circle-multiple-outline"></i>
+                                                        </a>
+                                                        <a title="Edit"
+                                                            href="<?= $baseurl ?>/pages/editpatient.php?patientId=<?= $p['id'] ?>"
+                                                            class="btn-sm bg-warning text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-pen"></i>
                                                         </a>
                                                         <!-- <a title="Release Request" href="<?= $baseurl ?>/form/deleteuser.php?id=<?= $p['id'] ?>" class="btn-sm bg-warning text-decoration-none text-white m-1" onclick="confirm('Are you sure?')">
                               <i class=" mdi mdi-export"></i>
@@ -158,12 +163,12 @@ $patient = $allPatient["singledata"];
                         </div>
                     </div>
                 </div>
-                <?php 
+                <?php
 
 ?>
 
 
-                <!-- *** END THIS p*** -->
+                <!-- * END THIS p*** -->
 
             </div>
 
