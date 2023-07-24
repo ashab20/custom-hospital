@@ -191,7 +191,7 @@ if(isset($_POST["updateData"])){
     }else{
       if($data['msg']='saved'){
         $_SESSION['msg']="<p style='color:green'>Update Successfully</p>";
-        echo "<script> location.replace('$baseurl/form/profile.php?id=$id')</script>";
+        echo "<script> location.replace('$baseurl/pages/profile.php?id=$id')</script>";
       }
 
     }
@@ -279,8 +279,37 @@ if(isset($_POST["addPatient"])){
 
 
     }
+}
 
 
+// ! *** Update PATIENT ***
+if(isset($_POST["updateDataPatient"])){
+  unset($_POST["updateDataPatient"]);
+  $patientId = $_POST['patientId'];
+  unset($_POST["patientId"]);
+  $_POST["name"] = htmlentities(ucwords($_POST["name"]));
+    $_POST["phone"] = htmlentities($_POST["phone"]);
+    $_POST["gender"] = htmlentities($_POST["gender"]);
+    $_POST["father_or_husband_name"] = $_POST["father_or_husband_name"];
+    $_POST["mother_name"] = $_POST["mother_name"];
+    $_POST["age"] = htmlentities($_POST["age"]);
+
+    if($user){
+      $_POST["created_by"] = $user["id"];
+    }
+    $phone = $_POST["phone"];
+    $data = $mysqli->updator("patient",$_POST,"id=$patientId");
+    if($data["error"]){
+      $_SESSION['msg']=$data['msg'];
+      echo "<script> location.replace('$baseurl/pages/editpatient.php?patientId=$patientId')</script>";
+      
+    }else{
+      if($data['updated']){
+        $_SESSION['msg']="<p class='h3 text-success text-center justify-content-center mx-auto'>Patient Updated Successfully</p>";
+        echo "<script> location.replace('$baseurl/pages/allpatient.php')</script>";
+       
+      }
+    }
 }
 
 

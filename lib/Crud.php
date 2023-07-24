@@ -241,7 +241,8 @@ function counter($table,$data){
 // * DEACTIVE 
     function deactive($table,$data, $id){
         $msg=$error=$delete_id = false;
-        $deactive = "UPDATE $table  SET $data,status=0 WHERE $id";
+        $deactive = "UPDATE $table  SET $data,'status'=0 WHERE $id";
+        return;
         if($deactive){
             $msg='deleted';
         }else{
