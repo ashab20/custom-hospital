@@ -1,5 +1,5 @@
-<?php 
-require_once('../lib/Crud.php'); 
+<?php
+require_once('../lib/Crud.php');
 require_once('../include/header.php');
 
 
@@ -8,16 +8,16 @@ require_once('../include/header.php');
 // }
 
 
-if($usr){
-switch ($usr['roles']) {
-  case 'DOCTOR':
-    header("location:$baseurl/dashboard/");
-    break;
-  case 'EMPLOYEE':
-    header("location:$baseurl/dashboard/");
-    break;
+if ($usr) {
+  switch ($usr['roles']) {
+    case 'DOCTOR':
+      header("location:$baseurl/dashboard/");
+      break;
+    case 'ASSISTANT':
+      header("location:$baseurl/dashboard/");
+      break;
   }
-}else{
+} else {
   header("location:$baseurl/pages/login.php");
 }
 
@@ -27,183 +27,179 @@ switch ($usr['roles']) {
 $mysqli = new Crud();
 
 ?>
-    <div class="container-scroller">
-    
-      <!-- partial:./navbar.php -->
-      <?php
-        require_once('../include/navbar.php');
-      ?>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
+<div class="container-scroller">
+
+    <!-- partial:./navbar.php -->
+    <?php
+  require_once('../include/navbar.php');
+  ?>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
         <!-- partial:include/sidebar.php -->
         <?php require_once('../include/sidebar.php') ?>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
+            <div class="content-wrapper">
 
 
 
-<!-- ***************************************************************** -->
+                <!-- ***************************************************************** -->
 
-            <!-- page header start -->
-            <div class="page-header">
-              <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> Patient 
-              </h3>
-              <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                  <li class="breadcrumb-item active" aria-current="page">
-                    <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-
-<?php
-
-
-$patientSingleData = $mysqli->select_single("SELECT id,name,phone,age,gender from patient");
-
-
-
-
-?>
-
-
-
-
-<!--  ! **************************************** -->
-<?php
- $id = $usr['id'];
-$patientData = $mysqli->selector('patient','*');
-
-
-// ! *** CONDITION START FOR ALL PATIENT ***
-
-
-$patient = $patientData['selectdata'];
-if($patientData['error']){
-  $_SESSION['msg']=$patientData['msg'];
-  echo "error";
-}
-
-
-?>
-
-  <!-- ! *** SHOW DETHAILs *** -->
-
-            <div class="row mt-5">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <h4 class="card-title">ALL Patient</h4>
-                      <div class="search d-flex">
-                          <i class="mdi mdi-person-star"></i>
-                          <input type="text" class="form-control" placeholder="Search by name">
-                        </div>
-                        <a href="<?=$baseurl ?>/pages/patient.php" class="btn btn-secondary text-white font-weight-bold text-decoration-none">
-                          Add Patient
-                        </a>
-                    </div>
-                    <div class="table-responsive mt-3">
-                      <!-- ! *** TABLE FROM DATABASE *** -->
-                      <table class="table table-hover table-bordered table-striped">
-                        <thead class="table-light">
-                          <tr>
-                            <th> Id </th>
-                            <th> Name</th>
-                            <th> Phone </th>
-                            <th> Age </th>
-                            <th> Created By </th>
-                            <th> Modified By </th>
-                            <th> Status </th>
-                            <th colspan="2"> Action </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        <?php 
-                        if($patientSingleData['numrows'] > 0){
-                          foreach ($patient as $p){?>
-                          <tr>
-                            <td><?= $p['id']?></td>
-                            <td>
-                                <!-- <img src="../assets/images/faces/face3.jpg" class="me-2" alt="image"> -->
-                                <a class="btn" href="<?=$baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>">
-                                  <?= $p['name']?>
-                                </a> 
-                            </td>
-                            <td><?= $p['phone']?></td>
-                            <td><?= $p['age']?></td>
-                            <td>
-                            <?php 
-                              if($p['created_by'] && $_SESSION['userdata']['id'] ){
-                                $creator = $mysqli->selector('user','name',$p['created_by']);
-                                
-                               echo $creator['selectdata'][0]['name'];
-                                  
-                              }                               
-                              ?>
-                              <br>
-                              <?=$p['created_at']?>
-                            </td>
-                            <td>
-                              <?php 
-                              
-                              $modifier = $mysqli->selector('user','name',$p['modified_by']);
-                              if($p['modified_by'] && $_SESSION['userdata']['id'] ){
-                                if($p['modified_by'] == $_SESSION['userdata']['id']){
-                                  echo 'YOU';
-                                }elseif($p['modified_by'] == $p['id']){
-                                  echo 'OWN';
-                                }else{
-                                  echo $modifier['selectdata'][0]['name'];
-                                }
-                                
-                                  
-                              } 
-                              ?>
-                              <br>
-                              <?= $p['modified_at']?>
-                            </td>
-                            <td>
-                              <?php
-                              if(!$p['status']== '0'){
-                                echo "<label class='badge badge-gradient-info'>ACTIVE</label>";
-                              }else{
-                                echo "<label class='badge badge-gradient-danger'>DEACTIVED</label>";
-                              }
-                              
-                              ?>
-                            </td>
-                            <td>
-                              <a href="<?= $baseurl ?>/form/form/editpatient.php?id=<?= $p['id'] ?>" class="btn-sm btn-primary text-decoration-none m-1">
-                              <i class="mdi mdi-border-color"></i>
-                            </a>
-                              <a href="<?= $baseurl ?>/form/deleteuser.php?id=<?= $p['id'] ?>" class="btn-sm btn-danger text-decoration-none" onclick="confirm('Are you sure?')">
-                              <i class="mdi mdi-delete"></i>
-                              </a>
-                            </td>
-                          </tr>
-                          <?php }}else{ ?>
-                          <tr>
-                            <td colspan="8" class="text-center">No Patient Found</td>
-                          </tr>
-                          <?php } ?>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+                <!-- page header start -->
+                <div class="page-header">
+                    <h3 class="page-title">
+                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                            <i class="mdi mdi-home"></i>
+                        </span> Patient
+                    </h3>
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <span></span>Overview <i
+                                    class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-              </div>
+
+                <?php
+
+
+        $patientSingleData = $mysqli->select_single("SELECT id,name,phone,age,gender from patient");
+
+
+
+
+        ?>
+
+
+
+
+                <!--  ! **************************************** -->
+                <?php
+        $patientId = $usr['patient_id'];
+        $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id WHERE p.id='$patientId' ORDER BY a.date DESC
+    ");
+
+        $patient = $allPatient["singledata"];
+
+        ?>
+
+                <div class="row mt-5" id="created_at">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title">Recent Activities</h4>
+                                    <div class="search d-flex">
+                                        <i class="mdi mdi-person-star"></i>
+                                        <input type="text" class="form-control" placeholder="Search by name">
+                                    </div>
+                                    <a href="<?= $baseurl ?>/dashboard/patient.php"
+                                        class="btn btn-secondary text-white font-weight-bold text-decoration-none">
+                                        Patient List
+                                    </a>
+                                </div>
+                                <div class="table-responsive mt-3">
+                                    <!-- ! * TABLE FROM DATABASE * -->
+                                    <table class="table table-hover table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th> Id </th>
+                                                <th> Name</th>
+                                                <th> Phone </th>
+                                                <th> Gender </th>
+                                                <th> Doctor Name </th>
+                                                <th> Time </th>
+                                                <th colspan="2"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                      $l = 0;
+                      if ($allPatient['numrows'] > 0) {
+                        foreach ($patient as $p) {
+                          if ($p['status'] == 1) {
+                      ?>
+                                            <tr>
+                                                <td><?= ++$l ?>
+                                                    <input type="text" hidden value="<?= $p['id'] ?>" id="pid">
+                                                </td>
+                                                <td>
+                                                    <a class="btn" title="View Profile"
+                                                        href="<?= $baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>">
+                                                        <?= $p['name'] ?>
+                                                    </a>
+                                                </td>
+                                                <td><?= $p['phone'] ?></td>
+                                                <td><?= $p['gender'] ?></td>
+                                                <td>
+                                                    <?= $p["doctor_name"] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $p["time"] ?> <br><br>
+                                                    <?php $d = explode("-", $p["date"]);
+                                echo $d[2] . "/" . $d[1] . "/" . $d[0]; ?>
+                                                </td>
+                                                <td>
+                                                    <span class="d-flex justify-content-center">
+
+                                                        <!-- Check prescription -->
+                                                        <?php
+                                  $checkApp = $mysqli->select_single("SELECT * from prescription WHERE appointment_id=" . $p["id"]);
+                                  if ($checkApp["numrows"] > 0 && !$usr['roles'] == 'ASSISTANT') {
+                                  ?>
+                                                        <a title="View Prescriotion"
+                                                            href="<?= $baseurl ?>/view/viewprescriotion.php?presid=<?= $checkApp["singledata"]["id"] ?>"
+                                                            class="btn-sm bg-success text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-file-document-box"></i>
+                                                        </a>
+                                                        <?php } else { ?>
+                                                        <a title="Appointment Card" target="_blank"
+                                                            href="<?= $baseurl ?>/view/appointmentcard.php?aid=<?= $p['id'] ?>"
+                                                            class="btn-sm bg-primary text-white text-decoration-none m-1">
+                                                            <i class="mdi mdi-account-card-details"></i>
+                                                        </a>
+                                                        <a title="Prescription"
+                                                            href="<?= $baseurl ?>/pages/prescription.php?appointmentid=<?= $p['id'] ?>"
+                                                            class="btn-sm bg-info text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-note-plus"></i>
+                                                        </a>
+                                                        <?php }  ?>
+                                                        <?php if ($usr['roles'] == 'DOCTOR' || $usr['roles'] == 'SUPERADMIN') { ?>
+                                                        <a title="Test/release"
+                                                            href="<?= $baseurl ?>/pages/patient.php?phn=<?= $p['phone'] ?>"
+                                                            class="btn-sm bg-info text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-plus-circle-multiple-outline"></i>
+                                                        </a>
+                                                        <?php } ?>
+                                                        <?php if ($usr['roles'] == 'ASSISTANT' || $usr['roles'] == 'SUPERADMIN') { ?>
+                                                        <a title="Cancel" onclick=" return myConfirm();"
+                                                            href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>"
+                                                            class="btn-sm bg-danger text-decoration-none text-white m-1">
+                                                            <i class="mdi mdi-cancel"></i>
+                                                        </a>
+                                                        <?php } ?>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <?php }
+                        }
+                      } else { ?>
+                                            <tr>
+                                                <td colspan="5">No Data Found</td>
+                                            </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         
 
-          </div>
-
-          <!-- content-wrapper ends -->
-          <!-- partial:include/footer.php -->
-          <?php require_once('../include/footer.php') ?>
- 
+            <!-- content-wrapper ends -->
+            <!-- partial:include/footer.php -->
+            <?php require_once('../include/footer.php') ?>

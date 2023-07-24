@@ -241,6 +241,10 @@ if(isset($_POST["updateDataPatient"])){
 
     }else{
       if($data['updated']){
+        if(($_SESSION['userdata']['roles'] === 'PATIENT')){
+          $_SESSION['msg']="<p class='h3 text-success text-center justify-content-center mx-auto'>Profile Updated</p>";
+          echo "<script> location.replace('$baseurl/pages/profile.php?patientid=$patientId')</script>";
+        }
         $_SESSION['msg']="<p class='h3 text-success text-center justify-content-center mx-auto'>Patient Updated Successfully</p>";
         echo "<script> location.replace('$baseurl/pages/allpatient.php')</script>";
 

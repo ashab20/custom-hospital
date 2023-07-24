@@ -348,9 +348,11 @@ if(isset($_SESSION['msg'])){
                         <div class="col-md-12">
                             <div class="d-flex justify-content-between">
                                 <h4 class="text-muted">Patient Information</h4>
-                                <!-- <span >
-          <i class=" mdi mdi-chevron-down" style="cursor:pointer"></i>
-        </span> -->
+                                <a title="Edit"
+                                    href="<?= $baseurl ?>/pages/editpatient.php?patientId=<?= $patient_Id ?>"
+                                    class="btn-sm bg-warning text-decoration-none text-white m-1">
+                                    <i class="mdi mdi-pen"></i>
+                                </a>
                             </div>
                             <hr>
                             <div class="row">
@@ -374,16 +376,22 @@ if(isset($_SESSION['msg'])){
                                     </div>
                                     <div class="row d-flex input-group py-2">
                                         <div class=" col-md-6 d-flex">
-                                            <span class="input-group-text">Weight:</span>
-                                            <input type="text" value="<?= $patient['weight']?>" class="form-control">
+                                            <span class="input-group-text">Father / Husband Name:</span>
+                                            <input type="text" value="<?= $patient['father_or_husband_name']?>"
+                                                class="form-control">
                                         </div>
+                                        <div class=" col-md-6 d-flex">
+                                            <span class="input-group-text">Mother Name: </span>
+                                            <input type="text" value="<?= $patient['mother_name']?>" readonly
+                                                class="form-control bg-white">
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex input-group py-2">
                                         <div class=" col-md-6 d-flex">
                                             <span class="input-group-text">Contact</span>
                                             <input type="text" value="<?= $patient['phone']?>" readonly
                                                 class="form-control bg-white">
                                         </div>
-                                    </div>
-                                    <div class="row d-flex input-group py-2">
                                         <div class=" col-md-6 d-flex">
                                             <span class="input-group-text">Age</span>
                                             <input type="text" value="<?= $patient['age']?>" readonly

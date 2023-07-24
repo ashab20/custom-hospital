@@ -102,7 +102,7 @@ if(isset($_POST["reg"])){
      
     }else{
       $user_id =  $data['insert_id'];
-      $patientData =  $data = $mysqli->selector("user","*","id='$user_id '")['selectdata'][0];
+      $patientData =  $data = $mysqli->selector("user","*",['id'=>$user_id])['selectdata'][0];
       $patient['user_id'] =  $user_id;
       $patient["name"] = htmlentities(ucwords($_POST["name"]));
       $patient["phone"] = htmlentities($_POST["phone"]);

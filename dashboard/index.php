@@ -12,7 +12,9 @@ if(isset($usr)){
       echo "<script> location.replace('$baseurl/dashboard/doctor.php')</script>";
     }elseif ($usr['roles']== 'ASSISTANT'){
       echo "<script> location.replace('$baseurl/dashboard/assistant.php')</script>";
-    }
+    }elseif ($usr['roles']== 'PATIENT'){
+        echo "<script> location.replace('$baseurl/dashboard/patient.php')</script>";
+      }
   }
 ?>
 <?php

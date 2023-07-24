@@ -71,7 +71,7 @@ if($usr['roles'] == 'PATIENT'){
     ");
 
 }else{
-    $patientId = $_GET['patientId'];
+    // $patientId = $_GET['patientId'];
     $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id ORDER BY a.date DESC
     ");
 }
