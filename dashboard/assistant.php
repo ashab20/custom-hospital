@@ -161,7 +161,6 @@ if ($data['error']) {
                                             <tr>
                                                 <th> Id </th>
                                                 <th> Name </th>
-                                                <th> Email </th>
                                                 <th> Phone </th>
                                                 <th> Created By </th>
                                                 <th> Modified By </th>
@@ -180,7 +179,6 @@ if ($data['error']) {
                                                         alt="image">
                                                     <?= $u['name'] ?>
                                                 </td>
-                                                <td><?= $u['email'] ?></td>
                                                 <td><?= $u['phone'] ?></td>
                                                 <td>
                                                     You
