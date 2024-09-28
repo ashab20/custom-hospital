@@ -20,9 +20,13 @@ if ($usr) {
 } else {
     header("location:$baseurl/pages/login.php");
 }
-$mysqli = new Crud();
-?>
 
+
+
+
+$mysqli = new Crud();
+
+?>
 <div class="container-scroller">
 
     <!-- partial:./navbar.php -->
@@ -45,7 +49,7 @@ $mysqli = new Crud();
                     <h3 class="page-title">
                         <span class="page-title-icon bg-gradient-primary text-white me-2">
                             <i class="mdi mdi-home"></i>
-                        </span> Patient
+                        </span> Pendding Appointment
 
                     </h3>
                     <nav aria-label="breadcrumb">
@@ -61,13 +65,36 @@ $mysqli = new Crud();
 
                 <?php
 
+                if ($usr['roles'] == 'PATIENT') {
+                    $patientId = $_GET['patientId'];
+                    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name, a.name as patient_name
+FROM appointment a 
+JOIN doctor d ON a.doctor_id=d.id 
+left JOIN patient p ON a.patient_id=p.id 
+JOIN user u ON u.id=d.user_id WHERE p.id='$patientId' AND a.status=0 ORDER BY a.date DESC
+    ");
+                } else {
+                    // $patientId = $_GET['patientId'];
+                    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name, a.name as patient_name
+FROM appointment a 
+JOIN doctor d ON a.doctor_id=d.id 
+left JOIN patient p ON a.patient_id=p.id 
+Left JOIN user u ON u.id=d.user_id
+WHERE a.status=0
+ORDER BY a.date DESC
+    ");
+                }
 
-
-                $allPatient = $mysqli->find("SELECT * FROM patient order by created_at DESC");
                 $patient = $allPatient["singledata"];
                 ?>
-
-
+                <?php if (isset($_SESSION["msg"])) { ?>
+                <div class="bg-light p-4">
+                    <h4 class="text-info text-center">
+                        <?= $_SESSION["msg"]; ?>
+                    </h4>
+                </div>
+                <?php unset($_SESSION["msg"]);
+                } ?>
                 <?php
                 // ! CONDITION END @:ADD PATIENT
 
@@ -75,31 +102,23 @@ $mysqli = new Crud();
                 // ! * PATIENT ADDED BY THIS ADMIN *
 
 
+
                 ?>
 
                 <div class="row mt-5" id="created_at">
                     <div class="col-12 grid-margin">
                         <div class="card">
-                            <div class="alert">
-                                <?php
-
-                                if (isset($_SESSION['msg'])) {
-                                    echo $_SESSION['msg'];
-                                    unset($_SESSION['msg']);
-                                }
-
-                                ?>
-                            </div>
                             <div class="card-body">
+
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="card-title">Patient List</h4>
+                                    <h4 class="card-title">Pendding Appointment List</h4>
                                     <div class="search d-flex">
                                         <i class="mdi mdi-person-star"></i>
                                         <input type="text" class="form-control" placeholder="Search by name">
                                     </div>
-                                    <a href="<?= $baseurl ?>/pages/patient.php"
+                                    <a href="<?= $baseurl ?>/dashboard/patient.php"
                                         class="btn btn-secondary text-white font-weight-bold text-decoration-none">
-                                        Add new patient
+                                        Pendding Appointment List
                                     </a>
                                 </div>
                                 <div class="table-responsive mt-3">
@@ -110,58 +129,53 @@ $mysqli = new Crud();
                                                 <th> Id </th>
                                                 <th> Name</th>
                                                 <th> Phone </th>
-                                                <th> Age </th>
-                                                <th> Blood Group </th>
-                                                <th colspan="2"> Action </th>
+                                                <th> Gender </th>
+                                                <th> Doctor Name </th>
+                                                <th> Time </th>
+                                                <th> Action </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
+                                            $l = 0;
                                             if ($allPatient['numrows'] > 0) {
-                                                foreach ($patient as $p) { ?>
+                                                foreach ($patient as $p) {
+                                                    if ($p['status'] == 0) {
+                                            ?>
                                             <tr>
-                                                <td><?= $p['id'] ?></td>
+                                                <td><?= ++$l ?>
+                                                    <input type="text" hidden value="<?= $p['id'] ?>" id="pid">
+                                                </td>
                                                 <td>
-                                                    <a class="btn"
+                                                    <a class="btn" title="View Profile"
                                                         href="<?= $baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>">
-                                                        <?= $p['name'] ?>
+                                                        <?= $p['name'] ?? $p['patient_name'] ?>
                                                     </a>
                                                 </td>
                                                 <td><?= $p['phone'] ?></td>
-                                                <td><?= $p['age'] ?></td>
+                                                <td><?= $p['gender'] ?? $p['gender'] ?></td>
                                                 <td>
-                                                    <?= $p['blood_group'] ?>
+                                                    <?= $p["doctor_name"] ?>
                                                 </td>
                                                 <td>
+                                                    <?= $p["time"] ?> <br><br>
+                                                    <?php $d = explode("-", $p["date"]);
+                                                                echo $d[2] . "/" . $d[1] . "/" . $d[0]; ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                                if ($p['status'] == 0) {
+                                                                ?>
+                                                    <a title="Cancel" onclick=" return myConfirm();"
+                                                        href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>"
+                                                        <span class="badge badge-success">Approve?</span>
+                                                    </a>
+                                                    <?php } ?>
+                                                </td>
 
-                                                    <span class="d-flex justify-content-center">
-                                                        <a title="Details"
-                                                            href="<?= $baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>"
-                                                            class="btn-sm bg-primary text-white text-decoration-none m-1">
-                                                            <i class=" mdi mdi-eye"></i>
-                                                        </a>
-                                                        <a title="Prescription"
-                                                            href="<?= $baseurl ?>/pages/prescription.php?presid=<?= $p['id'] ?>"
-                                                            class="btn-sm bg-info text-decoration-none text-white m-1">
-                                                            <i class=" mdi mdi-file-document-box "></i>
-                                                        </a>
-                                                        <a title="Prescription"
-                                                            href="<?= $baseurl ?>/pages/patient.php?phn=<?= $p['phone'] ?>"
-                                                            class="btn-sm bg-success text-decoration-none text-white m-1">
-                                                            <i class="mdi mdi-plus-circle-multiple-outline"></i>
-                                                        </a>
-                                                        <a title="Edit"
-                                                            href="<?= $baseurl ?>/pages/editpatient.php?patientId=<?= $p['id'] ?>"
-                                                            class="btn-sm bg-warning text-decoration-none text-white m-1">
-                                                            <i class="mdi mdi-pen"></i>
-                                                        </a>
-                                                        <!-- <a title="Release Request" href="<?= $baseurl ?>/form/deleteuser.php?id=<?= $p['id'] ?>" class="btn-sm bg-warning text-decoration-none text-white m-1" onclick="confirm('Are you sure?')">
-                              <i class=" mdi mdi-export"></i>
-                              </a> -->
-                                                    </span>
-                                                </td>
                                             </tr>
                                             <?php }
+                                                }
                                             } else { ?>
                                             <tr>
                                                 <td colspan="5">No Data Found</td>
@@ -179,10 +193,26 @@ $mysqli = new Crud();
                 ?>
 
 
-                <!-- * END THIS p*** -->
+                <!-- * END THIS ADMIN*** -->
 
             </div>
 
             <!-- content-wrapper ends -->
             <!-- partial:include/footer.php -->
             <?php require_once('../include/footer.php') ?>
+
+            <script>
+            $('#released').click(() => {
+                let pid = $("#pid").val();
+                location.replace("./invoice.php?patientid=" + pid);
+
+            })
+
+            function myConfirm() {
+                if (confirm("Do you want to Approve?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            </script>

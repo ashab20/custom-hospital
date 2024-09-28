@@ -99,11 +99,13 @@ if(isset($_POST["forgetPassword"])){
 // ! *** Appointment*****
 
 if(isset($_POST["appt"])){
+
   unset($_POST["appt"]);
   $_POST["name"] = htmlentities(ucwords($_POST["name"]));
   $_POST["message"] = htmlentities(ucwords($_POST["message"]));
   $_POST["date"] = $_POST["date"];
   $_POST["phone"] = htmlentities($_POST["phone"]);
+  $_POST["status"] = 0;
   $phone = $_POST["phone"];
 
   $ip["patient_id"]=$_POST["patient_id"];
@@ -144,8 +146,9 @@ if(isset($_POST["appt"])){
     }
     if($appt['msg']='saved'){
       // if($user['roles']=='SUPERAMDMIN' or $user['roles']=='AMDMIN'){
-         $_SESSION['appt']="<p style='color:green'>Appointment Submited </p>";
-      echo "<script> location.replace('$baseurl/view/payinfo.php?invoice=$invoieInsert_id')</script>";
+      $_SESSION['msg'] = "<p style='color:green'>Appointment Submited </p>";
+      // echo "<script> location.replace('$baseurl/view/payinfo.php?invoice=$invoieInsert_id')</script>";
+      echo "<script> location.replace('$baseurl/pages/pending-appointmented.php')</script>";
       // }else{
       //   $_SESSION['appt']="<p style='color:green'>Appointment Submited </p>";
       // echo "<script> location.replace('$baseurl/pages/success.php?phn=$phone')</script>";
@@ -220,6 +223,8 @@ if(isset($_GET['apptId'])){
 }
 // ! * Update PATIENT *
 if(isset($_POST["updateDataPatient"])){
+  
+
   unset($_POST["updateDataPatient"]);
   $patientId = $_POST['patientId'];
   unset($_POST["patientId"]);

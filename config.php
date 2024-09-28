@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // $baseurl = '/';
-$baseurl = 'http://localhost:8080/';
+$baseurl = 'https://hospital.dev/';
 
 // hostname
 define('HOST','localhost');
@@ -15,7 +15,7 @@ define('USER','root');
 
 // passsword
 // define('PASS','wdpfijzz_hospital');
-define('PASS','ashabu');
+define('PASS', 'ServBay.dev');
 
 // database name
 // define('DB_NAME','wdpfijzz_hospital');

@@ -39,7 +39,7 @@ CREATE TABLE `appointment` (
   `modified_at` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `appointment`
@@ -78,7 +78,7 @@ CREATE TABLE `department` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `department`
@@ -113,7 +113,7 @@ CREATE TABLE `designation` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `designation`
@@ -151,7 +151,7 @@ CREATE TABLE `doctor` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `doctor`
@@ -183,7 +183,7 @@ CREATE TABLE `employee` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 -- --------------------------------------------------------
 
@@ -214,7 +214,7 @@ CREATE TABLE `patient` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `patient`
@@ -250,7 +250,7 @@ CREATE TABLE `prescription` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `prescription`
@@ -285,7 +285,7 @@ CREATE TABLE `room` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `room`
@@ -320,7 +320,7 @@ CREATE TABLE `user` (
   `modified_at` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+);
 
 --
 -- Dumping data for table `user`

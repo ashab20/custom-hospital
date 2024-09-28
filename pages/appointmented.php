@@ -8,17 +8,17 @@ require_once('../include/header.php');
 // }
 
 
-if($usr){
-switch ($usr['roles']) {
-  case 'DOCTOR':
-    header("location:$baseurl/dashboard/");
-    break;
-  case 'ASSISTANT':
-    // header("location:$baseurl/dashboard/");
-    break;
-  }
-}else{
-  header("location:$baseurl/pages/login.php");
+if ($usr) {
+    switch ($usr['roles']) {
+        case 'DOCTOR':
+            header("location:$baseurl/dashboard/");
+            break;
+        case 'ASSISTANT':
+            // header("location:$baseurl/dashboard/");
+            break;
+    }
+} else {
+    header("location:$baseurl/pages/login.php");
 }
 
 
@@ -31,8 +31,8 @@ $mysqli = new Crud();
 
     <!-- partial:./navbar.php -->
     <?php
-        require_once('../include/navbar.php');
-      ?>
+    require_once('../include/navbar.php');
+    ?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:include/sidebar.php -->
@@ -49,7 +49,7 @@ $mysqli = new Crud();
                     <h3 class="page-title">
                         <span class="page-title-icon bg-gradient-primary text-white me-2">
                             <i class="mdi mdi-home"></i>
-                        </span> Patient
+                        </span> Appointment
 
                     </h3>
                     <nav aria-label="breadcrumb">
@@ -65,35 +65,45 @@ $mysqli = new Crud();
 
                 <?php
 
-if($usr['roles'] == 'PATIENT'){
-    $patientId = $_GET['patientId'];
-    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id WHERE p.id='$patientId' ORDER BY a.date DESC
+                if ($usr['roles'] == 'PATIENT') {
+                    $patientId = $_GET['patientId'];
+                    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name, a.name as patient_name
+FROM appointment a 
+JOIN doctor d ON a.doctor_id=d.id 
+left JOIN patient p ON a.patient_id=p.id 
+JOIN user u ON u.id=d.user_id WHERE p.id='$patientId' AND a.status=1 ORDER BY a.date DESC
     ");
-
-}else{
-    // $patientId = $_GET['patientId'];
-    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name FROM appointment a JOIN doctor d ON a.doctor_id=d.id JOIN patient p ON a.patient_id=p.id JOIN user u ON u.id=d.user_id ORDER BY a.date DESC
+                } else {
+                    // $patientId = $_GET['patientId'];
+                    $allPatient = $mysqli->find("SELECT a.*,p.id as patient_id,p.name,p.gender,p.age,u.name as doctor_name, a.name as patient_name
+FROM appointment a 
+JOIN doctor d ON a.doctor_id=d.id 
+left JOIN patient p ON a.patient_id=p.id 
+JOIN user u ON u.id=d.user_id
+WHERE a.status=1
+ORDER BY a.date DESC
     ");
-}
+                }
 
-$patient = $allPatient["singledata"];
-?>
-                <?php  if(isset($_SESSION["msg"])){?>
+                $patient = $allPatient["singledata"];
+                ?>
+                <?php if (isset($_SESSION["msg"])) { ?>
                 <div class="bg-light p-4">
                     <h4 class="text-info text-center">
                         <?= $_SESSION["msg"]; ?>
                     </h4>
                 </div>
-                <?php unset($_SESSION["msg"]); } ?>
+                <?php unset($_SESSION["msg"]);
+                } ?>
                 <?php
-// ! CONDITION END @:ADD PATIENT
+                // ! CONDITION END @:ADD PATIENT
 
-  $id = $usr['id'];
-// ! * PATIENT ADDED BY THIS ADMIN *
+                $id = $usr['id'];
+                // ! * PATIENT ADDED BY THIS ADMIN *
 
 
 
-?>
+                ?>
 
                 <div class="row mt-5" id="created_at">
                     <div class="col-12 grid-margin">
@@ -101,14 +111,14 @@ $patient = $allPatient["singledata"];
                             <div class="card-body">
 
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="card-title">Patient List</h4>
+                                    <h4 class="card-title">Appointment List</h4>
                                     <div class="search d-flex">
                                         <i class="mdi mdi-person-star"></i>
                                         <input type="text" class="form-control" placeholder="Search by name">
                                     </div>
-                                    <a href="<?=$baseurl ?>/dashboard/patient.php"
+                                    <a href="<?= $baseurl ?>/dashboard/patient.php"
                                         class="btn btn-secondary text-white font-weight-bold text-decoration-none">
-                                        Patient List
+                                        Appointment List
                                     </a>
                                 </div>
                                 <div class="table-responsive mt-3">
@@ -123,48 +133,60 @@ $patient = $allPatient["singledata"];
                                                 <th> Doctor Name </th>
                                                 <th> Time </th>
                                                 <th colspan="2"> Action </th>
+                                                <th colspan="2"> Action </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $l = 0;
-                          if($allPatient['numrows'] > 0){
-                          foreach ($patient as $p){
-                            if($p['status'] == 1){
-                            ?>
+                                            if ($allPatient['numrows'] > 0) {
+                                                foreach ($patient as $p) {
+                                                    if ($p['status'] == 1) {
+                                            ?>
                                             <tr>
                                                 <td><?= ++$l ?>
                                                     <input type="text" hidden value="<?= $p['id'] ?>" id="pid">
                                                 </td>
                                                 <td>
                                                     <a class="btn" title="View Profile"
-                                                        href="<?=$baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>">
-                                                        <?= $p['name']?>
+                                                        href="<?= $baseurl ?>/pages/profile.php?patientid=<?= $p['id'] ?>">
+                                                        <?= $p['name'] ?? $p['patient_name'] ?>
                                                     </a>
                                                 </td>
-                                                <td><?= $p['phone']?></td>
-                                                <td><?= $p['gender']?></td>
+                                                <td><?= $p['phone'] ?></td>
+                                                <td><?= $p['gender'] ?? $p['gender'] ?></td>
                                                 <td>
-                                                    <?= $p["doctor_name"]?>
+                                                    <?= $p["doctor_name"] ?>
                                                 </td>
                                                 <td>
-                                                    <?= $p["time"]?> <br><br>
-                                                    <?php $d = explode("-",$p["date"]); echo $d[2]."/".$d[1]."/".$d[0]; ?>
+                                                    <?= $p["time"] ?> <br><br>
+                                                    <?php $d = explode("-", $p["date"]);
+                                                                echo $d[2] . "/" . $d[1] . "/" . $d[0]; ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                                if ($p['status'] == 1) {
+                                                                ?>
+                                                    <a title="Cancel" onclick=" return myConfirm();"
+                                                        href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>">
+                                                        <span class="badge badge-danger">Cancel Appointment?</span>
+                                                    </a>
+                                                    <?php } ?>
                                                 </td>
                                                 <td>
                                                     <span class="d-flex justify-content-center">
 
                                                         <!-- Check prescription -->
                                                         <?php
-                              $checkApp = $mysqli->select_single("SELECT * from prescription WHERE appointment_id=".$p["id"]);
-                              if($checkApp["numrows"] > 0 && !$usr['roles'] == 'ASSISTANT'){
-                                 ?>
+                                                                    $checkApp = $mysqli->select_single("SELECT * from prescription WHERE appointment_id=" . $p["id"]);
+                                                                    if ($checkApp["numrows"] > 0 && !$usr['roles'] == 'ASSISTANT') {
+                                                                    ?>
                                                         <a title="View Prescriotion"
-                                                            href="<?= $baseurl ?>/view/viewprescriotion.php?presid=<?=$checkApp["singledata"]["id"]?>"
+                                                            href="<?= $baseurl ?>/view/viewprescriotion.php?presid=<?= $checkApp["singledata"]["id"] ?>"
                                                             class="btn-sm bg-success text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-file-document-box"></i>
                                                         </a>
-                                                        <?php }else{ ?>
+                                                        <?php } else { ?>
                                                         <a title="Appointment Card" target="_blank"
                                                             href="<?= $baseurl ?>/view/appointmentcard.php?aid=<?= $p['id'] ?>"
                                                             class="btn-sm bg-primary text-white text-decoration-none m-1">
@@ -176,14 +198,14 @@ $patient = $allPatient["singledata"];
                                                             <i class="mdi mdi-note-plus"></i>
                                                         </a>
                                                         <?php }  ?>
-                                                        <?php if($usr['roles'] == 'DOCTOR' || $usr['roles'] == 'SUPERADMIN'){ ?>
+                                                        <?php if ($usr['roles'] == 'DOCTOR' || $usr['roles'] == 'SUPERADMIN') { ?>
                                                         <a title="Test/release"
                                                             href="<?= $baseurl ?>/pages/patient.php?phn=<?= $p['phone'] ?>"
                                                             class="btn-sm bg-info text-decoration-none text-white m-1">
                                                             <i class="mdi mdi-plus-circle-multiple-outline"></i>
                                                         </a>
                                                         <?php } ?>
-                                                        <?php if($usr['roles'] == 'ASSISTANT' || $usr['roles'] == 'SUPERADMIN'){ ?>
+                                                        <?php if ($usr['roles'] == 'ASSISTANT' || $usr['roles'] == 'SUPERADMIN') { ?>
                                                         <a title="Cancel" onclick=" return myConfirm();"
                                                             href="<?= $baseurl ?>/form/action.php?apptId=<?= $p['id'] ?>"
                                                             class="btn-sm bg-danger text-decoration-none text-white m-1">
@@ -193,7 +215,9 @@ $patient = $allPatient["singledata"];
                                                     </span>
                                                 </td>
                                             </tr>
-                                            <?php }}}else{?>
+                                            <?php }
+                                                }
+                                            } else { ?>
                                             <tr>
                                                 <td colspan="5">No Data Found</td>
                                             </tr>
@@ -207,7 +231,7 @@ $patient = $allPatient["singledata"];
                 </div>
                 <?php
 
-?>
+                ?>
 
 
                 <!-- * END THIS ADMIN*** -->

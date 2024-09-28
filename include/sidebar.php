@@ -1,16 +1,16 @@
 <?php
 
-if($usr['roles'] === 'SUPERADMIN'){?>
+if ($usr['roles'] === 'SUPERADMIN') { ?>
 <!-- !***@@MIN *** -->
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
+            <a href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
-                    <?php if($usr['avatar']!== null){ ?>
+                    <?php if ($usr['avatar'] !== null) { ?>
                     <img src="../assets/images/avatar/<?= $usr['avatar'] ?>" alt="" width="100px" />
-                    <?php }else{  ?>
+                    <?php } else {  ?>
                     <img src="../assets/images/faces-clipart/pic-4.png" alt="" width="100px" />
                     <?php } ?>
                     <span class="login-status online"></span>
@@ -18,17 +18,17 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">
-                        <?= $usr['name'];?>
+                        <?= $usr['name']; ?>
                     </span>
                     <span class="text-secondary text-small">
-                        <?= $usr['roles'];?>
+                        <?= $usr['roles']; ?>
                     </span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $baseurl?>/dashboard/">
+            <a class="nav-link" href="<?= $baseurl ?>/dashboard/">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -43,26 +43,26 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             <div class="collapse" id="general-pages">
                 <ul class="nav flex-column sub-menu">
                     <!-- <li class="nav-item"> 
-                    <a class="nav-link" href="<?= $baseurl?>/dashboard/"> Overview                      
+                    <a class="nav-link" href="<?= $baseurl ?>/dashboard/"> Overview                      
                     </a>
                   </li> -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl?>/dashboard/user.php">
+                        <a class="nav-link" href="<?= $baseurl ?>/dashboard/user.php">
                             Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl?>/dashboard/doctor.php">
+                        <a class="nav-link" href="<?= $baseurl ?>/dashboard/doctor.php">
                             Doctors
                         </a>
                     </li>
                     <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?= $baseurl?>/dashboard/emp.php"> 
+                    <a class="nav-link" href="<?= $baseurl ?>/dashboard/emp.php"> 
                       Employees
                     </a>
                   </li> -->
                     <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?= $baseurl?>/dashboard/patient.php"> 
+                    <a class="nav-link" href="<?= $baseurl ?>/dashboard/patient.php"> 
                       Patients
                     </a></li> -->
                 </ul>
@@ -78,11 +78,12 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/pages/profile.php?id=<?=$usr['id'] ?>"> Profile </a></li>
+                            href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>"> Profile </a></li>
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/form/updateuser.php?id=<?=$usr['id'] ?>"> Update Profile </a></li>
+                            href="<?= $baseurl ?>/form/updateuser.php?id=<?= $usr['id'] ?>"> Update Profile </a></li>
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/pages/changepassword.php?id=<?=$usr['id'] ?>"> Change Password </a></li>
+                            href="<?= $baseurl ?>/pages/changepassword.php?id=<?= $usr['id'] ?>"> Change Password </a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -95,11 +96,14 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="patient">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/patient.php">Add Patient</a>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/patient.php">Add Patient</a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/allpatient.php">Patient
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/allpatient.php">Patient
                             List</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/appointmented.php">Appointment
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/appointmented.php">Appointment
+                            List</a></li>
+                    <li class="nav-item"> <a class="nav-link"
+                            href="<?= $baseurl ?>/pages/pending-appointmented.php">Appointment
                             List</a></li>
                 </ul>
             </div>
@@ -113,7 +117,7 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="nurse">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/patientcare.php">Patient
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/patientcare.php">Patient
                             Care</a></li>
                 </ul>
             </div>
@@ -141,13 +145,13 @@ if($usr['roles'] === 'SUPERADMIN'){?>
 </nav>
 
 <!-- *** @@MIN *** -->
-<?php }elseif($usr['roles'] === 'ADMIN'){ ?>
+<?php } elseif ($usr['roles'] === 'ADMIN') { ?>
 <!-- ! ***@MIN  *** -->
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
+            <a href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
                     <img src="../assets/images/faces/face1.jpg" alt="profile">
                     <span class="login-status online"></span>
@@ -155,17 +159,17 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">
-                        <?= $usr['name'];?>
+                        <?= $usr['name']; ?>
                     </span>
                     <span class="text-secondary text-small">
-                        <?= $usr['roles'];?>
+                        <?= $usr['roles']; ?>
                     </span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $baseurl?>/dashboard/">
+            <a class="nav-link" href="<?= $baseurl ?>/dashboard/">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -180,9 +184,9 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/user.php">All User</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/user.php">All User</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl?>/dashboard/doctor.php">
+                        <a class="nav-link" href="<?= $baseurl ?>/dashboard/doctor.php">
                             Doctor
                         </a>
                     </li>
@@ -201,7 +205,7 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/patient.php">Patient</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/patient.php">Patient</a></li>
                 </ul>
             </div>
         </li>
@@ -227,13 +231,13 @@ if($usr['roles'] === 'SUPERADMIN'){?>
 
 <!-- *** @MIN *** -->
 
-<?php }elseif($usr['roles'] === 'DOCTOR'){ ?>
+<?php } elseif ($usr['roles'] === 'DOCTOR') { ?>
 <!-- *** DOCTOR *** -->
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
+            <a href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
                     <img src="../assets/images/faces/face1.jpg" alt="profile">
                     <span class="login-status online"></span>
@@ -241,17 +245,17 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">
-                        <?= $usr['name'];?>
+                        <?= $usr['name']; ?>
                     </span>
                     <span class="text-secondary text-small">
-                        <?= $usr['roles'];?>
+                        <?= $usr['roles']; ?>
                     </span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $baseurl?>/dashboard/">
+            <a class="nav-link" href="<?= $baseurl ?>/dashboard/">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -266,9 +270,9 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/user.php">All User</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/user.php">All User</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= $baseurl?>/dashboard/doctor.php">
+                        <a class="nav-link" href="<?= $baseurl ?>/dashboard/doctor.php">
                             Doctor
                         </a>
                     </li>
@@ -287,7 +291,7 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/patient.php">Patient</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/patient.php">Patient</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Employee</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Patient</a></li>
                 </ul>
@@ -303,7 +307,7 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/user.php">Department</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/user.php">Department</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Designation</a>
                     </li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Doctor</a></li>
@@ -374,16 +378,16 @@ if($usr['roles'] === 'SUPERADMIN'){?>
 </nav>
 
 <!-- ***@DOCTOR END*** -->
-<?php }elseif($usr['roles'] === 'ASSISTANT'){ ?>
+<?php } elseif ($usr['roles'] === 'ASSISTANT') { ?>
 <!-- *** ASSISTANT *** -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
+            <a href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
-                    <?php if($usr['avatar']!== null){ ?>
+                    <?php if ($usr['avatar'] !== null) { ?>
                     <img src="../assets/images/avatar/<?= $usr['avatar'] ?>" alt="" width="100px" />
-                    <?php }else{  ?>
+                    <?php } else {  ?>
                     <img src="../assets/images/faces-clipart/pic-4.png" alt="" width="100px" />
                     <?php } ?>
                     <span class="login-status online"></span>
@@ -391,17 +395,17 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">
-                        <?= $usr['name'];?>
+                        <?= $usr['name']; ?>
                     </span>
                     <span class="text-secondary text-small">
-                        <?= $usr['roles'];?>
+                        <?= $usr['roles']; ?>
                     </span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $baseurl?>/dashboard/">
+            <a class="nav-link" href="<?= $baseurl ?>/dashboard/">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -415,11 +419,12 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             <div class="collapse" id="user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/pages/profile.php?id=<?=$usr['id'] ?>"> Profile </a></li>
+                            href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>"> Profile </a></li>
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/form/updateuser.php?id=<?=$usr['id'] ?>"> Update Profile </a></li>
+                            href="<?= $baseurl ?>/form/updateuser.php?id=<?= $usr['id'] ?>"> Update Profile </a></li>
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl?>/pages/changepassword.php?id=<?=$usr['id'] ?>"> Change Password </a></li>
+                            href="<?= $baseurl ?>/pages/changepassword.php?id=<?= $usr['id'] ?>"> Change Password </a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -433,11 +438,14 @@ if($usr['roles'] === 'SUPERADMIN'){?>
             </a>
             <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/patient.php">Add Patient</a>
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/patient.php">Add Patient</a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/allpatient.php">Patient
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/allpatient.php">Patient
                             List</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="<?=$baseurl ?>/pages/appointmented.php">Appointment
+                    <li class="nav-item"> <a class="nav-link" href="<?= $baseurl ?>/pages/appointmented.php">Appointment
+                            List</a></li>
+                    <li class="nav-item"> <a class="nav-link"
+                            href="<?= $baseurl ?>/pages/pending-appointmented.php">Pending Appointment
                             List</a></li>
                 </ul>
             </div>
@@ -445,15 +453,15 @@ if($usr['roles'] === 'SUPERADMIN'){?>
     </ul>
 </nav>
 
-<?php }elseif($usr['roles'] === 'PATIENT'){  ?>
+<?php } elseif ($usr['roles'] === 'PATIENT') {  ?>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="<?= $baseurl ?>/pages/profile.php?id=<?=$usr['id'] ?>" class="nav-link">
+            <a href="<?= $baseurl ?>/pages/profile.php?id=<?= $usr['id'] ?>" class="nav-link">
                 <div class="nav-profile-image">
-                    <?php if($usr['avatar']!== null){ ?>
+                    <?php if ($usr['avatar'] !== null) { ?>
                     <img src="../assets/images/avatar/<?= $usr['avatar'] ?>" alt="" width="100px" />
-                    <?php }else{  ?>
+                    <?php } else {  ?>
                     <img src="../assets/images/faces-clipart/pic-4.png" alt="" width="100px" />
                     <?php } ?>
                     <span class="login-status online"></span>
@@ -461,23 +469,23 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                     <span class="font-weight-bold mb-2">
-                        <?= $usr['name'];?>
+                        <?= $usr['name']; ?>
                     </span>
                     <span class="text-secondary text-small">
-                        <?= $usr['roles'];?>
+                        <?= $usr['roles']; ?>
                     </span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $baseurl?>/dashboard/">
+            <a class="nav-link" href="<?= $baseurl ?>/dashboard/">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?=$baseurl?>/pages/profile.php?patientid=<?=$usr['patient_id'] ?>">
+            <a class="nav-link" href="<?= $baseurl ?>/pages/profile.php?patientid=<?= $usr['patient_id'] ?>">
                 <span class="menu-title">Profile</span>
                 <i class=" mdi mdi-account-circle menu-icon"></i>
             </a>
@@ -494,14 +502,17 @@ if($usr['roles'] === 'SUPERADMIN'){?>
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="<?=$baseurl ?>/pages/makeappointment.php?patientId=<?= $usr['patient_id']?>">
+                            href="<?= $baseurl ?>/pages/makeappointment.php?patientId=<?= $usr['patient_id'] ?>">
                             Make Appointment
                         </a>
                     </li>
                     <li class="nav-item"> <a class="nav-link"
-                            href="<?=$baseurl ?>/pages/appointmented.php?patientId=<?= $usr['patient_id']?>">Appointment
+                            href="<?= $baseurl ?>/pages/appointmented.php?patientId=<?= $usr['patient_id'] ?>">Appointment
                             List</a>
                     </li>
+                    <li class="nav-item"> <a class="nav-link"
+                            href="<?= $baseurl ?>/pages/pending-appointmented.php">Pending Appointment
+                            List</a></li>
                 </ul>
             </div>
         </li>

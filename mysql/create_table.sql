@@ -7,7 +7,7 @@ CREATE TABLE `admit` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -18,6 +18,7 @@ CREATE TABLE `admit` (
 CREATE TABLE `appointment` (
   `id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,
+  `father_or_husband_name` varchar(50) NULL,
   `phone` varchar(15) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `message` text,
@@ -30,7 +31,7 @@ CREATE TABLE `appointment` (
   `modified_at` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -46,7 +47,7 @@ CREATE TABLE `department` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,7 @@ CREATE TABLE `designation` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,8 @@ CREATE TABLE `doctor` (
   `mother_name` varchar(40) NOT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `date_of_birth` date NOT NULL,
+  `qualification` varchar(200) DEFAULT NULL,
+  `gratuated_from` varchar(200) DEFAULT NULL,
   `shift` enum('MORNING','EVENING','NIGHT') DEFAULT NULL,
   `chamber_id` int(11) DEFAULT NULL,
   `designation_id` int(11) DEFAULT NULL,
@@ -90,7 +93,7 @@ CREATE TABLE `doctor` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -113,7 +116,7 @@ CREATE TABLE `employee` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -133,7 +136,7 @@ CREATE TABLE `employeehistory` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -154,7 +157,7 @@ CREATE TABLE `patient` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -177,7 +180,7 @@ CREATE TABLE `invoice_payment` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -198,7 +201,7 @@ CREATE TABLE `report` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -217,7 +220,7 @@ CREATE TABLE `room` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -233,7 +236,7 @@ CREATE TABLE `salary` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -253,7 +256,7 @@ CREATE TABLE `service` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -273,7 +276,7 @@ CREATE TABLE `test` (
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -285,6 +288,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(40) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   `password` char(40) NOT NULL,
   `phone` varchar(13) NOT NULL,
   `last_service` date DEFAULT NULL,
@@ -295,363 +299,53 @@ CREATE TABLE `user` (
   `modified_at` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
---
--- Indexes for dumped tables
---
+INSERT INTO `user` (`id`, `avatar`, `name`, `email`, `password`, `phone`, `roles`, `address`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, NULL, 'Ashab Uddin', 'ashab@gmail.com', '125bce26d032f2034e26cf229da4b52e', '01840088189', 'SUPERADMIN', NULL, '2022-07-06 11:34:56', NULL, NULL, NULL, 1),
+(2, NULL, 'Mr. Doctor', 'doctor@gmail.com', 'b714337aa8007c433329ef43c7b8252c', '01744100139', 'DOCTOR', 'Bhola', '2022-07-06 11:40:48', 1, NULL, NULL, 1),
+(3, NULL, 'Dr. Tashin Mustafe', 'tasin@gmail.com', 'b714337aa8007c433329ef43c7b8252c', '01717661719', 'DOCTOR', 'chawakbazar', '2022-07-15 05:22:07', 1, NULL, NULL, 1),
+(4, NULL, 'Habibur Rohman', 'habibur@gmail.com', 'b714337aa8007c433329ef43c7b8252c', '01739000999', 'DOCTOR', 'Dhaka', '2022-07-21 04:59:18', 1, NULL, NULL, 1);
 
---
--- Indexes for table `admit`
---
-ALTER TABLE `admit`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `appointment`
---
-ALTER TABLE `appointment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `doctor_id` (`doctor_id`),
-  ADD KEY `patient_id` (`patient_id`),
-  ADD KEY `department_id` (`department_id`);
+INSERT INTO `department` (`id`, `name`, `created_by`, `created_at`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Pethology', 1, '2022-07-06 11:41:15', '0000-00-00 00:00:00', NULL, 1),
+(2, 'Allergists/Immunologists', 1, '2022-07-06 11:41:34', '0000-00-00 00:00:00', NULL, 1),
+(3, 'Anesthesiologists', 1, '2022-07-06 11:41:41', '0000-00-00 00:00:00', NULL, 1),
+(4, 'Critical Care Medicine Specialists', 1, '2022-07-21 04:08:35', '0000-00-00 00:00:00', NULL, 1),
+(5, 'Hematologists', 1, '2022-07-21 04:08:46', '0000-00-00 00:00:00', NULL, 1),
+(6, 'Internists', 1, '2022-07-21 04:08:54', '0000-00-00 00:00:00', NULL, 1),
+(7, 'Neurologists', 1, '2022-07-21 04:09:03', '0000-00-00 00:00:00', NULL, 1),
+(8, 'Plastic Surgeons', 1, '2022-07-21 04:09:16', '0000-00-00 00:00:00', NULL, 1),
+(9, 'Podiatrists', 1, '2022-07-21 04:09:26', '0000-00-00 00:00:00', NULL, 1),
+(10, 'Radiologists', 1, '2022-07-21 04:09:46', '0000-00-00 00:00:00', NULL, 1);
 
---
--- Indexes for table `department`
---
-ALTER TABLE `department`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `designation`
---
-ALTER TABLE `designation`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
+INSERT INTO `designation` (`id`, `designation_name`, `base_salary`, `bounus_by_percent`, `total_bounus`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Reciptionist', '32000.00', '0.15', 2, '2022-07-06 11:42:07', 1, '0000-00-00 00:00:00', NULL, 1),
+(2, 'Supervisor', '25000.00', '0.15', 2, '2022-07-06 11:42:34', 1, '0000-00-00 00:00:00', NULL, 1),
+(3, 'Medical Officer', '25000.00', '0.15', 2, '2022-07-06 11:42:54', 1, '0000-00-00 00:00:00', NULL, 1),
+(4, 'Medical Surgent', '50000.00', '0.15', 2, '2022-07-21 04:11:31', 1, '0000-00-00 00:00:00', NULL, 1);
 
---
--- Indexes for table `doctor`
---
-ALTER TABLE `doctor`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `designation_id` (`designation_id`),
-  ADD KEY `chamber_id` (`chamber_id`),
-  ADD KEY `department_id` (`department_id`);
 
---
--- Indexes for table `employee`
---
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `designation_id` (`designation_id`);
 
---
--- Indexes for table `employeehistory`
---
-ALTER TABLE `employeehistory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `emplopyee_id` (`emplopyee_id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `patient`
---
-ALTER TABLE `patient`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `phone` (`phone`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
+INSERT INTO `doctor` (`id`, `user_id`, `father_name`, `mother_name`, `qualification`, `gratuated_from`, `gender`, `date_of_birth`, `shift`, `designation_id`, `visit_fee`, `department_id`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 2, 'Father', 'Mother', 'MBBS, FCPS, FCPS-2', 'Chittagong Medical College', 'male', '1987-06-01', 'EVENING',  4, '2000.00', 7, '2022-07-21 04:37:18', 1, '0000-00-00 00:00:00', NULL, 1),
+(2, 3, 'Father', 'Mother', 'FCPS', 'Sylhet Osmani Medical College', 'female', '2015-06-10', 'EVENING',  3, '1000.00', 10, '2022-07-21 04:58:06', 1, '0000-00-00 00:00:00', NULL, 1);
 
---
--- Indexes for table `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `patient_id` (`patient_id`);
 
---
--- Indexes for table `report`
---
-ALTER TABLE `report`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `issues_by` (`issues_by`);
+INSERT INTO `patient` (`id`, `name`, `father_or_husband_name`, `mother_name`, `religious`, `nid`, `blood_group`, `nationality`, `marital_status`, `phone`, `gender`, `age`, `relagius`, `weight`, `present_address`, `permanent_address`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Mr. Rabib Hasan', 'MR,', 'Mrs', NULL, '', 'A+', NULL, 'MARRIED', '01840083454', 'male', '35', NULL, NULL, 'Ctg', 'Bhula', '2022-07-21 03:59:30', 1, '0000-00-00 00:00:00', NULL, 1),
+(2, 'Mr Patient', 'Mr ', 'Mrs', NULL, '', '', NULL, 'UNMARRIED', '01845345345', 'male', '56', NULL, NULL, 'ctg', '', '2022-07-21 04:49:01', 1, '0000-00-00 00:00:00', NULL, 1);
 
---
--- Indexes for table `room`
---
-ALTER TABLE `room`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `salary`
---
-ALTER TABLE `salary`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `_id` (`_id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
+INSERT INTO `appointment` (`id`, `name`, `phone`, `patient_id`, `message`, `doctor_id`, `department_id`, `date`, `time`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Mr. Rabib Hasan', '01840083454', 1, '', 1, 7, '2022-07-23', '02:00PM', '2022-07-21 04:37:48', 1, NULL, NULL, 1),
+(2, 'Mr. Rabib Hasan', '01840083454', 1, '', 1, 7, '2022-07-22', '01:00PM', '2022-07-21 04:39:44', 1, NULL, NULL, 1);
 
---
--- Indexes for table `service`
---
-ALTER TABLE `service`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `test`
---
-ALTER TABLE `test`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `test_name` (`test_name`),
-  ADD KEY `modified_by` (`modified_by`),
-  ADD KEY `created_by` (`created_by`);
 
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `phone` (`phone`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `modified_by` (`modified_by`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `admit`
---
-ALTER TABLE `admit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `appointment`
---
-ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `department`
---
-ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `designation`
---
-ALTER TABLE `designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `doctor`
---
-ALTER TABLE `doctor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `employee`
---
-ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `employeehistory`
---
-ALTER TABLE `employeehistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `patient`
---
-ALTER TABLE `patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `payment`
---
-ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `report`
---
-ALTER TABLE `report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `room`
---
-ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `salary`
---
-ALTER TABLE `salary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `service`
---
-ALTER TABLE `service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `test`
---
-ALTER TABLE `test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `admit`
---
-ALTER TABLE `admit`
-  ADD CONSTRAINT `admit_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `admit_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `appointment`
---
-ALTER TABLE `appointment`
-  ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_5` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
-
---
--- Constraints for table `department`
---
-ALTER TABLE `department`
-  ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `department_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `designation`
---
-ALTER TABLE `designation`
-  ADD CONSTRAINT `designation_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `designation_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `doctor`
---
-ALTER TABLE `doctor`
-  ADD CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `doctor_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `doctor_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `doctor_ibfk_4` FOREIGN KEY (`designation_id`) REFERENCES `designation` (`id`),
-  ADD CONSTRAINT `doctor_ibfk_5` FOREIGN KEY (`chamber_id`) REFERENCES `room` (`id`),
-  ADD CONSTRAINT `doctor_ibfk_6` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
-
---
--- Constraints for table `employee`
---
-ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`designation_id`) REFERENCES `designation` (`id`);
-
---
--- Constraints for table `employeehistory`
---
-ALTER TABLE `employeehistory`
-  ADD CONSTRAINT `employeehistory_ibfk_1` FOREIGN KEY (`emplopyee_id`) REFERENCES `employee` (`id`),
-  ADD CONSTRAINT `employeehistory_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `employeehistory_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `patient`
---
-ALTER TABLE `patient`
-  ADD CONSTRAINT `patient_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `patient_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `payment`
---
-ALTER TABLE `invoice_payment`
-  ADD CONSTRAINT `invoice_payment_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `invoice_payment_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `invoice_payment_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`);
-
---
--- Constraints for table `report`
---
-ALTER TABLE `report`
-  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`issues_by`) REFERENCES `doctor` (`id`);
-
---
--- Constraints for table `room`
---
-ALTER TABLE `room`
-  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `room_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `salary`
---
-ALTER TABLE `salary`
-  ADD CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `salary_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `service`
---
-ALTER TABLE `service`
-  ADD CONSTRAINT `service_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `service_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `test`
---
-ALTER TABLE `test`
-  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `test_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`);
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`);
 COMMIT;
-

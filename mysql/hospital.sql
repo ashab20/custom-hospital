@@ -13,8 +13,23 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-
-create table `user`(id int auto_increment primary key,avatar varchar(255), name varchar(255)not null,email varchar(40)  unique, password char(40) not null, phone varchar(13) unique not null  , roles ENUM('SUPERADMIN','ADMIN','DOCTOR','ASSISTANT') default 'ASSISTANT',address text , created_at  timestamp default now() , created_by int, modified_at datetime , modified_by int, status int not null default 1 ,foreign key (created_by) references user(id), foreign key (modified_by) references user(id));
+create table `users`(
+    id int auto_increment primary key,
+    avatar varchar(255),
+    name varchar(255) not null,
+    email varchar(40) unique,
+    password char(40) not null,
+    phone varchar(13) unique not null,
+    roles ENUM('SUPERADMIN','ADMIN','DOCTOR','ASSISTANT') default 'ASSISTANT',
+    address text,
+    created_at timestamp default now(),
+    created_by int,
+    modified_at datetime,
+    modified_by int,
+    status int not null default 1,
+    foreign key (created_by) references users(id),
+    foreign key (modified_by) references users(id)
+);
 
 
 
@@ -22,8 +37,6 @@ create table `user`(id int auto_increment primary key,avatar varchar(255), name 
 create table `designation` (id int auto_increment primary key, designation_name varchar(255) not null, base_salary decimal(10,2) not null, bounus_by_percent decimal(5,2), total_bounus int ,created_at  timestamp default now(), created_by int , modified_at timestamp, modified_by int, status int not null default 1, foreign key (modified_by) references user(id),foreign key (created_by) references user(id));
 
 create table `department` (id int auto_increment primary key,name varchar(255) not null unique, created_by int,created_at  timestamp default now(), modified_at timestamp, modified_by int, status int not null default 1, foreign key (modified_by) references user(id),foreign key (created_by) references user(id));
-
-
 
 
 
@@ -69,7 +82,29 @@ create table medical_history(id int auto_increment primary key,patient_id int, c
 
 create table medicine( id int auto_increment primary key,patient_id int not null, type ENUM("TAB","INJ") not null,medicine_name varchar(100) not null,mg decimal(5) UNSIGNED ,dose varchar(20) not null,day varchar(20),comment varchar(255),created_at  timestamp default now(),  created_by int, modified_at timestamp, modified_by int, status int not null default 1, foreign key (modified_by) references user(id),foreign key (created_by) references user(id) ,foreign key (patient_id) references patient(id));
 
-create table prescription(id int auto_increment primary key,patient_id int,doctor_id int, appointment_id int unique, admit_id int, medicine_id longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`medicine_id`)), `test` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`test`)),description longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`description`)),advice longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`advice`)),overal_comment text,created_at  timestamp default now(),  created_by int, modified_at timestamp, modified_by int, status int not null default 1, foreign key (modified_by) references user(id),foreign key (created_by) references user(id) ,foreign key (patient_id) references patient(id), foreign key (doctor_id) references doctor(id), foreign key (appointment_id) references appointment(id),foreign key (admit_id) references admit(id));
+create table `prescription`(
+    id int auto_increment primary key,
+    patient_id int,
+    doctor_id int,
+    appointment_id int unique,
+    admit_id int,
+    medicine_id JSON DEFAULT NULL,
+    test JSON DEFAULT NULL,
+    description JSON DEFAULT NULL,
+    advice JSON DEFAULT NULL,
+    overal_comment text,
+    created_at timestamp default now(),
+    created_by int,
+    modified_at timestamp,
+    modified_by int,
+    status int not null default 1,
+    foreign key (modified_by) references users(id),
+    foreign key (created_by) references users(id),
+    foreign key (patient_id) references patient(id),
+    foreign key (doctor_id) references doctor(id),
+    foreign key (appointment_id) references appointment(id),
+    foreign key (admit_id) references admit(id)
+);
 
 
 create table generalcheckup( id int auto_increment primary key,patient_id int not null, presure varchar(20) not null,temperature varchar(20) not null,bp varchar(30) , saturation varchar(20), status int not null default 1,created_at  timestamp default now(),  created_by int, modified_at timestamp, modified_by int, foreign key (modified_by) references user(id),foreign key (created_by) references user(id),foreign key (patient_id) references patient(id));
